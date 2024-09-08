@@ -1,0 +1,31 @@
+# Dataset
+dataset: SUPER
+datafun: scheme.regularization.gpm.dataset.super.CIFAR100
+order: 0
+pc_valid: 0.05  # fraction of training data used for validation
+scenario: task
+tasks: 20
+# General setting
+scheme: GPM
+optim: SGD
+lr: 0.01
+lr_min: 1.0e-5
+lr_patience: 6
+decay: 0.
+momentum: 0.9
+gamma: 0.5
+bs: 64
+epochs: 50
+
+model: scheme.regularization.gpm.model.LeNet
+
+GPM:
+  th: [0.98, 0.98, 0.98, 0.98, 0.98]
+  step: [0.001, 0.001, 0.001, 0.001, 0.001]
+
+# Device
+mode: GPU
+gpuid: 0
+seed: 1
+# Output
+name: gpm/super/TIL_20tasks

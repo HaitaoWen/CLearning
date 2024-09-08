@@ -1,0 +1,30 @@
+# Dataset
+dataset: FIVE
+datafun: scheme.regularization.dfgp.data.five.FIVE
+pc_valid: 0.05  # fraction of training data used for validation
+scenario: class
+tasks: 5
+# General setting
+scheme: SSIL
+model: model.resnet_cifar.resnet32
+optim: SGD
+lr: 0.1
+decay: 5.0e-4
+momentum: 0.9
+steps: [40, 60]
+gamma: 0.1
+memory: 20
+mcat: True
+bs: 128
+mbs: 32
+epochs: 80
+# Hyperparameters
+tau: 2
+lambd: 4
+# Device
+mode: GPU
+gpuid: 0
+workers: 4
+seed: 1993
+# Output
+name: ssil/five/5tasks

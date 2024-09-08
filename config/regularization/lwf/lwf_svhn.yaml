@@ -1,0 +1,27 @@
+# Dataset
+dataset: SVHN
+scenario: class
+#order: none
+init: 2
+tasks: 5
+# General setting
+scheme: LwF
+model: model.resnet_cifar.resnet32
+optim: SGD
+lr: 0.1
+decay: 5.0e-4
+momentum: 0.9
+steps: [40, 60]
+gamma: 0.1
+bs: 128
+epochs: 80
+# Hyperparameters
+tau: 2
+lambd: 1.0
+# Device
+mode: GPU
+gpuid: 0
+workers: 4
+seed: 1993
+# Output
+name: lwf/svhn/ini2_5tasks

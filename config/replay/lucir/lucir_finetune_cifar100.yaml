@@ -1,0 +1,36 @@
+# Dataset
+dataset: CIFAR100
+scenario: class
+order: 0
+init: 50
+tasks: 6
+# General setting
+scheme: LUCIR
+model: model.modified_resnet_cifar.resnet32
+optim: SGD
+lr: 0.1
+decay: 5.0e-4
+momentum: 0.9
+steps: [80, 120]
+gamma: 0.1
+memory: 20
+bs: 128
+epochs: 160
+# Hyperparameters
+K: 2
+dist: 0.5
+lw_mr: 1.0
+lamda: 5.0
+finetune:
+  lr: 0.01
+  epochs: 20
+  steps: [10]
+  gamma: 0.1
+# Device
+mode: GPU
+gpuid: 0
+workers: 4
+seed: 1993
+# Output
+note: finetune
+name: lucir/cifar100/init50_6tasks

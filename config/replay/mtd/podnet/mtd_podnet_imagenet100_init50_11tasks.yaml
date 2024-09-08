@@ -1,0 +1,83 @@
+# Dataset
+dataset: ImageNet100
+scenario: class
+order: 0
+init: 50
+tasks: 11
+
+# General setting
+scheme: MTD
+base: PODNet
+model: scheme.replay.podnet.basenet.BasicNet
+convnet: resnet18
+convnet_config:
+  nf: 64
+optim: SGD
+lr: 0.05
+decay: 5.0e-4
+momentum: 0.9
+scheduling: cosine
+gamma: 0.1
+memory: 20
+bs: 64
+epochs: 90
+
+# Hyperparameters
+classifier_config:
+  type: cosine
+  proxy_per_class: 10
+  distance: neg_stable_cosine_distance
+
+postprocessor_config:
+  type: learned_scaling
+  initial_value: 1.0
+
+pod_flat:
+  scheduled_factor: 10.0
+
+pod_spatial:
+  scheduled_factor: 8.0
+  collapse_channels: spatial
+
+nca:
+  margin: 0.6
+  scale: 1.
+  exclude_pos_denominator: true
+
+groupwise_factors:
+  old_weights: 0.
+
+finetuning_config:
+  lr: 0.01
+  blr: 0.001  # learning rate for branch
+  epochs: 20
+
+weight_generation:
+  type: imprinted
+  multi_class_diff: kmeans
+
+mtd:
+  num: 1
+  tau: 2
+  lambd: 1500
+  noise: 0.03
+  dissimilar: 1.0
+  permute: match  #true, false
+  scale: false
+  kl:
+    p: 1500
+    c: 1500
+  output: average  # average, origin, max
+  stages: ['layer3', 'layer4']  # ['layer3', 'layer4']
+  dis_emb_avg: true
+#  mixup:
+#    a: 0.1
+#    b: 1
+
+# Device
+mode: GPU
+gpuid: 0
+workers: 16
+seed: 1993
+# Output
+name: mtd/podnet/imagenet100/init50_11tasks

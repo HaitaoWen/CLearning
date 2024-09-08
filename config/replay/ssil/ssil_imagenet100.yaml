@@ -1,0 +1,29 @@
+# Dataset
+dataset: ImageNet100
+scenario: class
+order: 0
+init: 50
+tasks: 6
+# General setting
+scheme: SSIL
+optim: SGD
+lr: 0.1
+decay: 1.0e-4
+momentum: 0.9
+steps: [30, 60]
+gamma: 0.1
+memory: 20
+mcat: True
+bs: 128
+mbs: 32
+epochs: 90
+# Hyperparameters
+tau: 2
+lambd: 4
+# Device
+mode: GPU
+gpuid: 0
+workers: 16
+seed: 1993
+# Output
+name: ssil/imagenet100/init50_6tasks

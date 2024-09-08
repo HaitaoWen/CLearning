@@ -1,0 +1,82 @@
+# Dataset
+dataset: CIFAR100
+scenario: class
+order: 0
+init: 50
+tasks: 6
+
+# General setting
+scheme: OPC
+base: PODNet
+model: scheme.replay.podnet.basenet.BasicNet
+convnet: rebuffi
+optim: SGD
+lr: 0.1
+decay: 5.0e-4
+momentum: 0.9
+scheduling: cosine
+gamma: 0.1
+memory: 20
+bs: 128
+epochs: 160
+
+# Hyperparameters
+classifier_config:
+  type: cosine
+  proxy_per_class: 10
+  distance: neg_stable_cosine_distance
+
+postprocessor_config:
+  type: learned_scaling
+  initial_value: 1.0
+
+pod_flat:
+  scheduled_factor: 1.0
+
+pod_spatial:
+  scheduled_factor: 3.0
+  collapse_channels: spatial
+
+nca:
+  margin: 0.6
+  scale: 1.
+  exclude_pos_denominator: true
+
+groupwise_factors:
+  old_weights: 0.
+
+finetuning_config:
+  lr: 0.05
+  epochs: 20
+
+weight_generation:
+  type: imprinted
+  multi_class_diff: kmeans
+
+opc:
+  curve: TOrderBezierCurve
+  lr: 0.1
+  epochs: 20
+  steps: [10, 15]
+  gamma: 0.1
+  decay: 5.0e-4
+  points: 10
+  radius: 0
+  balance: 0.1
+  cut_off: 0.75
+  init_new: kaiming
+  loss: ce+embed
+  VIS: True
+ens:
+  type: sample
+  center: 0.75
+  gap: 0.
+  num: 1
+  radius: 0.
+# Device
+mode: GPU
+gpuid: 0
+workers: 4
+seed: 1993
+# Output
+name: opc/podnet/cifar100/ablation/init50_6tasks_bezier_curve_TOrder

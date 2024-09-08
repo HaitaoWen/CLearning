@@ -1,0 +1,31 @@
+# Dataset
+dataset: ImageNet1000
+scenario: class
+order: 0
+init: 500
+tasks: 6
+# General setting
+scheme: LUCIR
+model: model.modified_resnet_imagenet.resnet18
+optim: SGD
+lr: 0.1
+decay: 1.0e-4
+momentum: 0.9
+steps: [30, 60]
+gamma: 0.1
+memory: 20
+bs: 128
+epochs: 90
+# Hyperparameters
+K: 2
+dist: 0.5
+lw_mr: 1.0
+lamda: 10.0
+# Device
+mode: DP
+gpuid: [0, 1, 2, 3]
+workers: 16
+pin_memory: True
+seed: 1993
+# Output
+name: lucir/imagenet1000/init500_6tasks

@@ -1,0 +1,53 @@
+# Dataset
+dataset: CIFAR100
+scenario: class
+order: 0
+init: 50
+tasks: 6
+# General setting
+scheme: MTD
+base: LwF
+model: model.resnet_cifar.resnet32
+optim: SGD
+lr: 0.1
+decay: 5.0e-4
+momentum: 0.9
+steps: [80, 120]
+gamma: 0.1
+memory: 5
+sample: random
+bs: 128
+epochs: 160
+
+# Hyperparameters
+tau: 2
+lambd: 1.0
+
+finetune:
+  blr: 0.001
+  epochs: 15
+  steps: [10]
+  gamma: 0.1
+
+mtd:
+  num: 1
+  tau: 2
+  lambd: 1.0
+  noise: 0.03
+  dissimilar: 1.0
+  permute: true  #true, false
+  scale: false
+  kl:
+    p: 1.0
+    c: 1.0
+  output: average  # average, origin, max
+  stages: ['layer2', 'layer3']
+#  dis_emb_avg: true
+
+# Device
+mode: GPU
+gpuid: 0
+workers: 4
+seed: 1993
+# Output
+name: mtd/lwf/cifar100/init50_6tasks

@@ -1,0 +1,64 @@
+# Dataset
+dataset: ImageNet1000
+scenario: class
+order: 0
+init: 500
+tasks: 6
+
+# General setting
+scheme: PODNet
+model: scheme.replay.podnet.basenet.BasicNet
+convnet: resnet18
+convnet_config:
+  nf: 64
+optim: SGD
+lr: 0.05
+decay: 1.0e-4
+momentum: 0.9
+scheduling: cosine
+gamma: 0.1
+memory: 20
+bs: 64
+epochs: 90
+
+# Hyperparameters
+classifier_config:
+  type: cosine
+  proxy_per_class: 10
+  distance: neg_stable_cosine_distance
+
+postprocessor_config:
+  type: learned_scaling
+  initial_value: 1.0
+
+pod_flat:
+  scheduled_factor: 10.0
+
+pod_spatial:
+  scheduled_factor: 8.0
+  collapse_channels: spatial
+
+nca:
+  margin: 0.6
+  scale: 1.
+  exclude_pos_denominator: true
+
+groupwise_factors:
+  old_weights: 0.
+
+finetuning_config:
+  lr: 0.01
+  epochs: 20
+
+weight_generation:
+  type: imprinted
+  multi_class_diff: kmeans
+
+# Device
+mode: DP
+gpuid: [0, 1, 2, 3]
+workers: 16
+pin_memory: True
+seed: 1993
+# Output
+name: podnet/imagenet1000/init500_6tasks

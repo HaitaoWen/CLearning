@@ -1,0 +1,31 @@
+# Dataset
+dataset: PMNIST
+datafun: scheme.regularization.gpm.dataset.pmnist.PMNIST
+pc_valid: 0.1  # fraction of training data used for validation
+scenario: domain
+tasks: 10
+# General setting
+scheme: GPM
+optim: SGD
+lr: 0.01
+lr_min: 1.0e-5
+lr_patience: 6
+decay: 0.
+momentum: 0.9
+gamma: 0.5
+bs: 10
+epochs: 5
+
+model: scheme.regularization.gpm.model.MLP
+n_hidden: 100
+n_outputs: 10
+
+GPM:
+  th: [0.95, 0.99, 0.99]
+
+# Device
+mode: GPU
+gpuid: 0
+seed: 1
+# Output
+name: gpm/pmnist/DIL_10tasks

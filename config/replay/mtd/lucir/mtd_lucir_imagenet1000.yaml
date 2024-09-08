@@ -1,0 +1,56 @@
+# Dataset
+dataset: ImageNet1000
+scenario: class
+order: 0
+init: 500
+tasks: 6
+# General setting
+scheme: MTD
+base: LUCIR
+model: model.modified_resnet_imagenet.resnet18
+optim: SGD
+lr: 0.1
+decay: 1.0e-4
+momentum: 0.9
+steps: [30, 60]
+gamma: 0.1
+memory: 20
+bs: 128
+epochs: 90
+# Hyperparameters
+K: 2
+dist: 0.5
+lw_mr: 1.0
+lamda: 10.0
+finetune:
+  lr: 0.01
+  epochs: 20
+  steps: [10]
+  gamma: 0.1
+  blr: 0.001
+
+mtd:
+  num: 1
+  tau: 2
+  lambd: 0.5
+  noise: 0.03
+  dissimilar: 1.0
+  permute: true  #true, false
+  scale: false
+  kl:
+    p: 0.5
+    c: 0.5
+  output: average  # average, origin, max
+  stages: ['layer3', 'layer4']
+  dis_emb_avg: true
+
+
+# Device
+mode: DP
+gpuid: [0, 1, 2, 3]
+workers: 16
+pin_memory: True
+seed: 1993
+# Output
+note: finetune
+name: mtd/lucir/imagenet1000/init500_6tasks

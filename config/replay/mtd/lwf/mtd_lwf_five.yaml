@@ -1,0 +1,53 @@
+# Dataset
+dataset: FIVE
+datafun: scheme.regularization.dfgp.data.five.FIVE
+pc_valid: 0.05  # fraction of training data used for validation
+scenario: class
+tasks: 5
+# General setting
+scheme: MTD
+base: LwF
+model: model.resnet_cifar.resnet32
+optim: SGD
+lr: 0.1
+decay: 5.0e-4
+momentum: 0.9
+steps: [40, 60]
+gamma: 0.1
+memory: 5
+sample: random
+bs: 128
+epochs: 80
+
+# Hyperparameters
+tau: 2
+lambd: 1.0
+
+finetune:
+  blr: 0.0001
+  epochs: 15
+  steps: [10]
+  gamma: 0.1
+
+mtd:
+  num: 1
+  tau: 2
+  lambd: 1.0
+  noise: 0.01
+  dissimilar: 1.0
+  permute: true  #true, false
+  scale: false
+  kl:
+    p: 1.0
+    c: 1.0
+  output: average  # average, origin, max
+  stages: ['layer2', 'layer3']
+#  dis_emb_avg: true
+
+# Device
+mode: GPU
+gpuid: 0
+workers: 4
+seed: 1993
+# Output
+name: mtd/lwf/five/5tasks

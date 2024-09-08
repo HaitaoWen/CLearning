@@ -1,0 +1,63 @@
+# Dataset
+dataset: ImageNet1000
+scenario: class
+order: 0
+init: 500
+tasks: 6
+
+# General setting
+scheme: AFC
+model: scheme.replay.podnet.basenet.BasicNet
+convnet: resnet18_importance
+convnet_config:
+  nf: 64
+optim: SGD
+lr: 0.10
+decay: 0.0001
+momentum: 0.9
+scheduling: cosine
+gamma: 0.1
+memory: 20
+bs: 128
+epochs: 90
+
+# Hyperparameters
+classifier_config:
+  type: cosine
+  proxy_per_class: 10
+  distance: neg_stable_cosine_distance
+
+postprocessor_config:
+  type: learned_scaling
+  initial_value: 1.0
+
+feature_distil:
+  scheduled_factor: 10.0
+  collapse_channels: pixel
+
+nca:
+  margin: 0.6
+  scale: 1.
+  exclude_pos_denominator: true
+
+groupwise_factors:
+  old_weights: 0.
+
+finetuning_config:
+  lr: 0.02
+  epochs: 20
+
+weight_generation:
+  type: imprinted
+  multi_class_diff: kmeans
+
+# Device
+mode: DP
+gpuid: [0, 1, 2, 3]
+workers: 16
+FAST: True
+threads: 32
+pin_memory: True
+seed: 1993
+# Output
+name: afc/imagenet1000/init500_6tasks

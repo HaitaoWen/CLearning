@@ -1,0 +1,30 @@
+# Dataset
+dataset: CIFAR100
+datafun: scheme.regularization.gpm.dataset.cifar100.CIFAR100
+pc_valid: 0.05  # fraction of training data used for validation
+scenario: task
+tasks: 10
+# General setting
+scheme: GPM
+optim: SGD
+lr: 0.01
+lr_min: 1.0e-5
+lr_patience: 6
+decay: 0.
+momentum: 0.9
+gamma: 0.5
+bs: 64
+epochs: 200
+
+model: scheme.regularization.gpm.model.AlexNet
+
+GPM:
+  th: [0.97, 0.97, 0.97, 0.97, 0.97]
+  step: [0.003, 0.003, 0.003, 0.003, 0.003]
+
+# Device
+mode: GPU
+gpuid: 0
+seed: 1
+# Output
+name: gpm/cifar100/TIL_10tasks

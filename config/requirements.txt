@@ -1,0 +1,11 @@
+yaml
+torch==1.11.0
+numpy
+# continuum==1.0.26
+continuum==1.2.4
+torchvision
+tqdm
+tensorboard
+tensorboardx
+matplotlib
+argunparse

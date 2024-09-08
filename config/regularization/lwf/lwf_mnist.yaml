@@ -1,0 +1,36 @@
+# Dataset
+dataset: MNIST
+scenario: class
+#order: none
+init: 2
+tasks: 5
+# General setting
+scheme: LwF
+optim: SGD
+lr: 0.01
+lr_min: 1.0e-5
+lr_patience: 6
+decay: 0.
+momentum: 0.9
+gamma: 0.5
+bs: 10
+epochs: 5
+
+model: model.uncustomized.mlp.MLP
+width: 100
+depth: 2
+input: 784
+bias: false
+batch_norm: false
+
+# Hyperparameters
+tau: 2
+lambd: 1
+
+# Device
+mode: GPU
+gpuid: 0
+workers: 4
+seed: 1993
+# Output
+name: lwf/mnist/init2_5tasks

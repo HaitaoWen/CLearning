@@ -1,0 +1,36 @@
+# Dataset
+dataset: ImageNet100
+scenario: class
+order: 0
+init: 50
+tasks: 6
+# General setting
+scheme: CSCCT
+base: LUCIR
+model: model.modified_resnet_imagenet.resnet18
+optim: SGD
+lr: 0.1
+decay: 1.0e-4
+momentum: 0.9
+steps: [30, 60]
+gamma: 0.1
+memory: 20
+bs: 128
+epochs: 90
+# Hyperparameters
+K: 2
+dist: 0.5
+lw_mr: 1.0
+lamda: 10.0
+# cross space cluster
+csc: 3.0
+# control transfer
+ct: 1.5
+ct_tau: 2
+# Device
+mode: GPU
+gpuid: 0
+workers: 16
+seed: 1993
+# Output
+name: cscct/lucir/imagenet100/init50_6tasks

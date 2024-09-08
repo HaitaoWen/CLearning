@@ -1,0 +1,31 @@
+# Dataset
+dataset: miniImageNet
+datafun: scheme.regularization.gpm.dataset.miniimagenet.miniImageNet
+pc_valid: 0.02  # fraction of training data used for validation
+scenario: task
+tasks: 20
+# General setting
+scheme: GPM
+optim: SGD
+lr: 0.1
+lr_min: 1.0e-3
+lr_patience: 5
+decay: 0.
+momentum: 0.9
+gamma: 0.3333333
+bs: 64
+epochs: 100
+
+model: scheme.regularization.gpm.model.ResNet18
+nf: 20
+
+GPM:
+  th: [0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97,
+       0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97, 0.97]
+
+# Device
+mode: GPU
+gpuid: 0
+seed: 1
+# Output
+name: gpm/mini/TIL_20tasks

@@ -1,0 +1,53 @@
+# Dataset
+dataset: SVHN
+scenario: class
+#order: none
+init: 2
+tasks: 5
+# General setting
+scheme: MTD
+base: SSIL
+model: model.resnet_cifar.resnet32
+optim: SGD
+lr: 0.1
+decay: 5.0e-4
+momentum: 0.9
+steps: [40, 60]
+gamma: 0.1
+memory: 20
+mcat: True
+bs: 128
+mbs: 32
+epochs: 80
+# Hyperparameters
+tau: 2
+lambd: 4
+
+finetune:
+  blr: 0.01
+  epochs: 20
+  steps: [10]
+  gamma: 0.1
+
+mtd:
+  num: 1
+  tau: 2
+  lambd: 4
+  noise: 0.03
+  dissimilar: 1.0
+  permute: true  #true, false
+  scale: false
+  kl:
+    p: 4
+    c: 4
+  output: average  # average, origin, max
+  stages: ['layer2', 'layer3']
+#  dis_emb_avg: true
+
+# Device
+mode: GPU
+gpuid: 0
+workers: 4
+seed: 1993
+# Output
+name: mtd/ssil/svhn/init2_5tasks

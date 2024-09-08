@@ -1,0 +1,82 @@
+# Dataset
+dataset: CIFAR100
+scenario: class
+order: 0
+init: 5
+tasks: 20
+
+# General setting
+scheme: MTD
+base: AFC
+model: scheme.replay.podnet.basenet.BasicNet
+convnet: rebuffi_importance
+optim: SGD
+lr: 0.1
+decay: 5.0e-4
+momentum: 0.9
+scheduling: cosine
+gamma: 0.1
+memory: 20
+bs: 128
+epochs: 160
+
+# Hyperparameters
+classifier_config:
+  type: cosine
+  proxy_per_class: 10
+  distance: neg_stable_cosine_distance
+
+postprocessor_config:
+  type: learned_scaling
+  initial_value: 1.0
+
+pod_flat:
+  scheduled_factor: 1.0
+
+feature_distil:
+  scheduled_factor: 4.0
+  collapse_channels: pixel
+
+nca:
+  margin: 0.6
+  scale: 1.
+  exclude_pos_denominator: true
+
+groupwise_factors:
+  old_weights: 0.
+
+finetuning_config:
+  lr: 0.05
+  blr: 0.01  # learning rate for branch
+  epochs: 20
+
+weight_generation:
+  type: imprinted
+  multi_class_diff: kmeans
+
+mtd:
+  num: 1
+  tau: 2
+  lambd: 100
+  noise: 0.03
+  dissimilar: 1.0
+  permute: true  #true, false
+  scale: false
+  kl:
+    p: 1000
+    c: 3000
+  output: average  # average, origin, max
+  stages: ['stage_3', 'stage_4']
+  dis_emb_avg: false
+  separate: false
+  #  mixup:
+  #    a: 0.03
+  #    b: 1
+
+# Device
+mode: GPU
+gpuid: 0
+workers: 4
+seed: 1993
+# Output
+name: mtd/afc/cifar100/init5_20tasks
